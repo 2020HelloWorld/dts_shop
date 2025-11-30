@@ -98,7 +98,7 @@ dts:
     local:
       storagePath: dts/storage
       # 这个地方应该是wx模块的WxStorageController的fetch方法对应的地址
-      address: http://localhost:8080/storage/
+      address: http://192.168.1.8:8080/storage/
     # 阿里云对象存储配置信息
     aliyun:
       endpoint: oss-cn-guangzhou.aliyuncs.com
@@ -126,6 +126,11 @@ pagehelper:
   params: count=countSql
 
 spring:
+  servlet:
+    multipart:
+      location: D:/dts_temp/uploads   # 自定义上传临时目录，必须存在且可写
+      max-file-size: 50MB          # 根据需求调整
+      max-request-size: 50MB
   datasource:
     druid:
       url:  jdbc:mysql://localhost:3306/dts-demo?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
