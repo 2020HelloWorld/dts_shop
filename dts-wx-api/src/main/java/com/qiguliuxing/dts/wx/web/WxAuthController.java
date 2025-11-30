@@ -306,11 +306,11 @@ public class WxAuthController {
 		String username = JacksonUtil.parseString(body, "username");
 		String password = JacksonUtil.parseString(body, "password");
 		String mobile = JacksonUtil.parseString(body, "mobile");
-		String code = JacksonUtil.parseString(body, "code");
+		//String code = JacksonUtil.parseString(body, "code");
 		String wxCode = JacksonUtil.parseString(body, "wxCode");
 
 		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password) || StringUtils.isEmpty(mobile)
-				|| StringUtils.isEmpty(wxCode) || StringUtils.isEmpty(code)) {
+				|| StringUtils.isEmpty(wxCode)) {
 			return ResponseUtil.badArgument();
 		}
 
@@ -330,11 +330,11 @@ public class WxAuthController {
 			return WxResponseUtil.fail(AUTH_INVALID_MOBILE);
 		}
 		// 判断验证码是否正确
-		String cacheCode = CaptchaCodeManager.getCachedCaptcha(mobile);
-		if (cacheCode == null || cacheCode.isEmpty() || !cacheCode.equals(code)) {
-			logger.error("请求账号注册出错:{}", AUTH_CAPTCHA_UNMATCH.desc());
-			return WxResponseUtil.fail(AUTH_CAPTCHA_UNMATCH);
-		}
+//		String cacheCode = CaptchaCodeManager.getCachedCaptcha(mobile);
+//		if (cacheCode == null || cacheCode.isEmpty() || !cacheCode.equals(code)) {
+//			logger.error("请求账号注册出错:{}", AUTH_CAPTCHA_UNMATCH.desc());
+//			return WxResponseUtil.fail(AUTH_CAPTCHA_UNMATCH);
+//		}
 
 		String openId = null;
 		try {
