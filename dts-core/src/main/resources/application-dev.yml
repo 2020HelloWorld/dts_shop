@@ -1,0 +1,152 @@
+dts:
+  # 开发者应该设置成自己的wx相关信息
+  wx:
+    app-id: wx5518bb2edcf57e62
+    app-secret: 34249b7ba98f224bd91de3c228935324
+    mch-id: 1538666666
+    mch-key: 1538xxxxxx-1538xxxxxx-1538xxxxxx
+    notify-url: https://test.dtsshop.com/demo/order/dtsNotify
+    # 商户证书文件路径
+    # 请参考“商户证书”一节 https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=4_3
+    key-path: xxxxx
+
+ #通知相关配置
+  notify:
+    mail:
+      # 邮件通知配置,邮箱一般用于接收业务通知例如收到新的订单，sendto 定义邮件接收者，通常为商城运营人员
+      enable: true
+      host: smtp.aliyun.com
+      username: dtsshop@aliyun.com
+      password: xxx
+      sendfrom: xxx@aliyun.com
+      sendto: xxx@qq.com
+
+    # 短消息模版通知配置
+    # 短信息用于通知客户，例如发货短信通知，注意配置格式；template-name，template-templateId 请参考 NotifyType 枚举值
+    sms:
+      enable: true
+      appid: 1400286323
+      appkey: 223123sade14c129c4ce9a30b5f90ad2c
+      template:
+      - name: paySucceed
+        templateId: 112233
+      - name: captcha
+        templateId: 112233
+      - name: ship
+        templateId: 112233
+      - name: refund
+        templateId: 112233
+
+    # 微信模版通知配置
+    # 微信模版用于通知客户或者运营者，注意配置格式；template-name，template-templateId 请参考 NotifyType 枚举值
+    wx:
+      enable: true
+      template:
+      - name: paySucceed
+        templateId: sirUcgTAIQfoIxxxxxx
+      - name: captcha
+        templateId: OfBkXh7UILpsDkcxxxxxx
+      - name: ship
+        templateId: dqTuWzrmL_wwK-SJsxxxxxx
+      - name: applyRefund
+        templateId: lzPHltMpUOiBol7i2Yxxxxxx
+      - name: refund
+        templateId: NDy6EpPuu2C9NMUxxxxxx
+
+  # 快鸟物流查询配置
+  express:
+    enable: true
+    appId: "xxxxxx"
+    appKey: "xxxxxx"
+    vendors:
+    - code: "HTKY"
+      name: "百世快递"
+    - code: "YZBK"
+      name: "邮政国内标快"
+    - code: "ZTO"
+      name: "中通快递"
+    - code: "YTO"
+      name: "圆通速递"
+    - code: "YD"
+      name: "韵达速递"
+    - code: "YZPY"
+      name: "邮政快递包裹"
+    - code: "EMS"
+      name: "EMS"
+    - code: "DBL"
+      name: "德邦快递"
+    - code: "FAST"
+      name: "快捷快递"
+    - code: "ZJS"
+      name: "宅急送"
+    - code: "TNT"
+      name: "TNT快递"
+    - code: "UPS"
+      name: "UPS"
+    - code: "DHL"
+      name: "DHL"
+    - code: "FEDEX"
+      name: "FEDEX联邦(国内件)"
+    - code: "FEDEX_GJ"
+      name: "FEDEX联邦(国际件)"
+
+  # 对象存储配置
+  storage:
+    # 当前工作的对象存储模式，分别是local、aliyun、tencent、qiniu
+    active: local
+    # 本地对象存储配置信息
+    local:
+      storagePath: dts/storage
+      # 这个地方应该是wx模块的WxStorageController的fetch方法对应的地址
+      address: http://localhost:8080/storage/
+    # 阿里云对象存储配置信息
+    aliyun:
+      endpoint: oss-cn-guangzhou.aliyuncs.com
+      accessKeyId: 111111
+      accessKeySecret: xxxxxx
+      bucketName: dts-shop
+    # 腾讯对象存储配置信息
+    # 请参考 https://cloud.tencent.com/document/product/436/6249
+    tencent:
+      secretId: 111111
+      secretKey: xxxxxx
+      region: xxxxxx
+      bucketName: dts
+    # 七牛云对象存储配置信息
+    qiniu:
+      endpoint: http://dtsshop.wx.clouddn.com
+      accessKey: 111111
+      secretKey: xxxxxx
+      bucketName: dts
+      
+pagehelper:
+  helperDialect:  mysql
+  reasonable: true
+  supportMethodsArguments:  true
+  params: count=countSql
+
+spring:
+  datasource:
+    druid:
+      url:  jdbc:mysql://localhost:3306/dts-demo?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+      driver-class-name:  com.mysql.cj.jdbc.Driver
+      username:  root
+      password:  haitao817679
+      initial-size:  10
+      max-active:  50
+      min-idle:  10
+      max-wait:  60000
+      pool-prepared-statements:  true
+      max-pool-prepared-statement-per-connection-size:  20
+      validation-query:  SELECT 1 FROM DUAL
+      test-on-borrow:  false
+      test-on-return:  false
+      test-while-idle:  true
+      time-between-eviction-runs-millis:  60000
+      filters:  stat,wall
+alipay:
+  appId: 9021000157681990
+  privateKey: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCnKyJXhfWqlcbYYpu4WO2osnLkn94WXTHGtoRQlRx7AxgI9i8fXQtjWhpUfNQ/k0wWFBidXzWn1DdQQ9Nj7NQiEiE2N3n5mqNgCLE4mJ/So7dMyq5qiDay4PrMXUDKMQ9auVwSgc3doDh2+GfXtLSaCA+5jHQc6/nab3tKQNMgk07Ru4BbN1zrPXe/5iElkfFOAxDWZXMtlhw9wEc5fAg1gdrfrbhDio5iKH3ImKlohSkhwSpigxc88ky5j7Fj6+42s9ol11D1m2PyHRt/ZnyS8S8Yat4emVvxNWyFyuFaNnDOEW7F9XoLS6rRyUZnHva3Pzj7RhfAlsX5WiPwPKK5AgMBAAECggEAUawmTCKbwusISmHq+Kch/eCpd3+PztdbYV18ya4ASy1YydAVd7pKvRChepO+Uw1RCBxrZj/FBCkPmTx6BAEKJ1c6OLXj9woRNfMpOqB+vTfVb0Q68Lt6Fe0LO1t4MxDDEq0rCbO3c8c6rw1wFpgoAHVd0WaIuDSmTo1W7BE91VS0ntA014KWB2hoV7ahFhuJw5o5PMIGPGRpCr/Nr4Z8Dh17YwpiJLDUbM4gMeeExqexxgIqcAv/EhC5TL9pQXvJNlO40zP4V0PXelv5EhD/Yb1LGkQgYuDZEOu6ksNvOg3vUG2JiRdUcrI2ebDHP6bWlklQAilbYsERzJHe5V9frQKBgQD+U5jepgqpGkA/K0JprltGKPaywSIr9MVAoeejtK01HK0B913NRXdqVEO2Ieg55x7ckMudOhrT+agdyXaoa7nqdMlQcHRN4SYmIQNFP1HfeI/n2huLr655TV1SSe4m2aYG/3FhXCxEzgAWC6cim3mlLYEMS6N/YwJCE3hkM4c4QwKBgQCoRLkGbyYWBaiLmChcCLjfS+/0I1s5Wtamo5ImLLDcm0cWYwRksAiHu+fsCYt30784B2CasS24dvsRQXfBOJCXy/NjMCGrpFbOO8MRqahENLgNUkGUuMy+YBodhiFLv4BfM9imrVzob9P0bhBJcx8j6HzHbi7eFVC+N94nxwU3UwKBgQDmE4qAIYYTZQQqIWB7aph36CcFn2LikRTBW7bKinEHU2HQHZBmWymkr4ZyBkqn10Y8E2GgYyhSC9Di4ZbO1mXijLRyaMlOixiP9d2Xj6jpmY/WF6JDxDL62dpKz0b7LnrcacqQYWpK9HFvgCs7S5vIqlnMXcETROaOED8hptv1MQKBgCmI9ScKbptHAEic4XF+UawEwZFA3Pa2Xn+5poy3wVxjE9QJ0v7LmP9wOZpA7OVCJlQ9NfJZQ9Dhxa2HvHi8bqyZklVsfxMwOKEljUwh1cAoRzo6kKeWSiu/6xJYloVtGtHlKVhTOLjDSc1vEaQfv5MMgyhzISx+lHSvs62b6cSzAoGBAPjaeILsfsLIrP6WgRiRBQN1PdW7UgHjA327WepwzeylpTudvAlOz+QAuYaF7sKtchWdnDtomN1JnO6/EKE/sYTQ+zS/kkf3oqTjnLD+z6HkiWh+ERZyLy+MslUuKSq3aLRCtWO0o4+LRl7wJzSR3cu85dVbMII+R2rabgXyrhYJ
+  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxbe6B88UGbMFD1/b6R8AwoftPUrjvvIimLAPTPITfCdD6NYVA/s42IjMHJ6d5vwdXWG/VpRwufG2BpfiDADnxXSZ2sJTBnVj7UUoEutlhGlCs0owWOBQp2xYc89HneAosfZbR1ZaYootY08F0NNQlzaOTFy58JijLeggqv0Ub2BtKx651SM47UeaaIhsIdgTrRIWhYitx+LGsc8qX4yx0cCRyBlSHYi97aSmhvSZT6/U166EreSGV1plWPBMmLn+4sdk3M4tFKPw/eDNJgYqfC2dYNymao2jXMK/CMoX5o9fehkYmWUb+mhPzO91p60I4NTlRBAlGNNcwGsmIoI1UwIDAQAB
+  notifyUrl: http://gl100904lz020.vicp.fun/pay/alipay/notify
+  returnUrl: http://gl100904lz020.vicp.fun/pay/alipay/return
