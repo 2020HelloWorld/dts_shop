@@ -20,11 +20,11 @@ public class WxWebMvcConfiguration implements WebMvcConfigurer {
 		argumentResolvers.add(new LoginUserHandlerMethodArgumentResolver());
 	}
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(myWxLoginInterceptor)
-				.addPathPatterns("/wx/**")
-				.excludePathPatterns("/wx/auth/**");
-	}
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(myWxLoginInterceptor)
+//				.addPathPatterns("/wx/**")
+//				.excludePathPatterns("/wx/auth/**");
+//	}
 
 }
