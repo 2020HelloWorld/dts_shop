@@ -9,10 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSONObject;
 import com.qiguliuxing.dts.core.util.ResponseUtil;
@@ -156,4 +153,12 @@ public class WxUserController {
 		logger.info("【请求结束】获取用户推广二维码图片URL,响应结果:{}", JSONObject.toJSONString(data));
 		return ResponseUtil.ok(data);
 	}
+
+    @PostMapping("/updateUserMessage")
+    public Object updateUserMessage(@RequestBody DtsUser user){
+        if (userService.updateById(user) == 0){
+            return ResponseUtil.updatedDataFailed();
+        }
+        return ResponseUtil.ok();
+    }
 }

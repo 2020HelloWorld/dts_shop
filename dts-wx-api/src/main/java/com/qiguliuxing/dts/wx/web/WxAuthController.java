@@ -121,12 +121,17 @@ public class WxAuthController {
 		userInfo.setAvatarUrl(user.getAvatar());
 		
 		try {
-			String registerDate = new SimpleDateFormat("yyyy-MM-dd")
-					.format(user.getAddTime() == null ? user.getAddTime() : LocalDateTime.now());
-			userInfo.setRegisterDate(registerDate);
+//			String registerDate = new SimpleDateFormat("yyyy-MM-dd")
+//					.format(user.getAddTime() == null ? user.getAddTime() : LocalDateTime.now());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime addTime = user.getAddTime() == null ? LocalDateTime.now() : user.getAddTime();
+            String registerDate = addTime.format(formatter);
+
+            userInfo.setRegisterDate(registerDate);
 			userInfo.setStatus(user.getStatus());
 			userInfo.setUserLevel(user.getUserLevel());// 用户层级
 			userInfo.setUserLevelDesc(UserTypeEnum.getInstance(user.getUserLevel()).getDesc());// 用户层级描述
+            userInfo.setPhone(user.getMobile());
 		} catch (Exception e) {
 			logger.error("账户登录：设置用户指定信息出错："+e.getMessage());
 			e.printStackTrace();
@@ -243,6 +248,8 @@ public class WxAuthController {
 			logger.error("微信登录：设置用户指定信息出错："+e.getMessage());
 			e.printStackTrace();
 		}
+        userInfo.setAvatarUrl(user.getAvatar());
+        userInfo.setNickName(user.getNickname());
 		result.put("userInfo", userInfo);
 
 		logger.info("【请求结束】微信登录,响应结果:{}", JSONObject.toJSONString(result));
@@ -389,6 +396,13 @@ public class WxAuthController {
 		UserInfo userInfo = new UserInfo();
 		userInfo.setNickName(username);
 		userInfo.setAvatarUrl(user.getAvatar());
+        userInfo.setPhone(user.getMobile());
+        userInfo.setUserLevelDesc("普通用户");
+        userInfo.setGender(user.getGender());
+        userInfo.setUserId(user.getId());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String registerDate = user.getAddTime().format(formatter);
+        userInfo.setRegisterDate(registerDate);
 
 		// token
 		UserToken userToken = null;

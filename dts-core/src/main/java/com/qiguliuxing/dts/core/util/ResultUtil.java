@@ -35,41 +35,41 @@ import java.util.Map;
  * <li>7xx，管理后台后端业务错误码， 具体见Dts-wx-api模块的WxResponseCode。
  * </ul>
  */
-public class ResponseUtil {
+public class ResultUtil {
 	public static Object ok() {
 		Map<String, Object> obj = new HashMap<String, Object>();
-		obj.put("errno", 0);
-		obj.put("errmsg", "成功");
+		obj.put("code", 0);
+		obj.put("msg", "成功");
 		return obj;
 	}
 
 	public static Object ok(Object data) {
 		Map<String, Object> obj = new HashMap<String, Object>();
-		obj.put("errno", 0);
-		obj.put("errmsg", "成功");
+		obj.put("code", 0);
+		obj.put("msg", "成功");
 		obj.put("data", data);
 		return obj;
 	}
 
-	public static Object ok(String errmsg, Object data) {
+	public static Object ok(String msg, Object data) {
 		Map<String, Object> obj = new HashMap<String, Object>();
-		obj.put("errno", 0);
-		obj.put("errmsg", errmsg);
+		obj.put("code", 0);
+		obj.put("msg", msg);
 		obj.put("data", data);
 		return obj;
 	}
 
 	public static Object fail() {
 		Map<String, Object> obj = new HashMap<String, Object>();
-		obj.put("errno", -1);
-		obj.put("errmsg", "错误");
+		obj.put("code", -1);
+		obj.put("msg", "错误");
 		return obj;
 	}
 
-	public static Object fail(int errno, String errmsg) {
+	public static Object fail(int code, String msg) {
 		Map<String, Object> obj = new HashMap<String, Object>();
-		obj.put("errno", errno);
-		obj.put("errmsg", errmsg);
+		obj.put("code", code);
+		obj.put("msg", msg);
 		return obj;
 	}
 

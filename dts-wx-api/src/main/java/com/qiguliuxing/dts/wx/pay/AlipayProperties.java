@@ -14,6 +14,7 @@ public class AlipayProperties {
     private String alipayPublicKey;
     private String notifyUrl;
     private String returnUrl;
+//    private String gateway = "https://openapi.alipay.com/gateway.do";
     private String gateway = "https://openapi-sandbox.dl.alipaydev.com/gateway.do";
 }
 
