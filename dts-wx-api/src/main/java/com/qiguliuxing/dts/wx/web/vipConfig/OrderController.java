@@ -1,8 +1,8 @@
 package com.qiguliuxing.dts.wx.web.vipConfig;
 
 import com.qiguliuxing.dts.core.util.ResponseUtil;
-import com.qiguliuxing.dts.db.domain.VipOrder;
-import com.qiguliuxing.dts.wx.service.VipOrderService;
+import com.qiguliuxing.dts.db.domain.Order;
+import com.qiguliuxing.dts.wx.service.OrderService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -11,29 +11,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/wx/vipOrder")
+@RequestMapping("/wx/order")
 @Validated
-public class VipOrderController {
+public class OrderController {
     @Autowired
-    private VipOrderService vipOrderService;
+    private OrderService orderService;
 
 
     /**
      * 创建订单
-     * @param vipOrder
+     * @param order
      * @return
      */
-    @PostMapping("/createVipOrder")
-    @ApiOperation("购买会员创建订单")
-    public Object createOrder(@RequestBody VipOrder vipOrder){
-        vipOrderService.createOrder(vipOrder);
+    @PostMapping("/createOrder")
+    @ApiOperation("创建订单")
+    public Object createOrder(@RequestBody Order order){
+        orderService.createOrder(order);
         return ResponseUtil.ok();
     }
 
     @GetMapping("/queryAllOrder")
     @ApiOperation("查询所有订单")
     public Object queryAllOrder(){
-        List<VipOrder> orderList = vipOrderService.queryAllOrder();
+        List<Order> orderList = orderService.queryAllOrder();
         return ResponseUtil.ok(orderList);
     }
 

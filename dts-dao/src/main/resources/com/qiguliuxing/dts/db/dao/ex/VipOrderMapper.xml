@@ -3,8 +3,7 @@
 <mapper namespace="com.qiguliuxing.dts.db.dao.ex.VipOrderMapper">
 
 
-    <insert id="insert" parameterType="com.qiguliuxing.dts.db.domain.VipOrder"
-            useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.qiguliuxing.dts.db.domain.Order">
         INSERT INTO dts_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId != null">user_id,</if>
@@ -23,6 +22,8 @@
             <if test="successTime != null">success_time,</if>
             <if test="extra != null">extra,</if>
             <if test="userNote != null">user_note,</if>
+            <if test="tradeNo != null">trade_no,</if>
+            <if test="type != null">type,</if>
         </trim>
 
         <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
@@ -42,7 +43,31 @@
             <if test="successTime != null">#{successTime},</if>
             <if test="extra != null">#{extra},</if>
             <if test="userNote != null">#{userNote},</if>
+            <if test="tradeNo != null">#{tradeNo},</if>
+            <if test="type != null">#{type},</if>
         </trim>
 
     </insert>
+    <update id="update" parameterType="com.qiguliuxing.dts.db.domain.Order">
+        UPDATE dts_order
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orderNo != null">order_no = #{orderNo},</if>
+            <if test="vipLevel != null">vip_level = #{vipLevel},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="subject != null">subject = #{subject},</if>
+            <if test="body != null">body = #{body},</if>
+            <if test="expiredAt != null">expired_at = #{expiredAt},</if>
+            <if test="feeAmount != null">fee_amount = #{feeAmount},</if>
+            <if test="outOrderNo != null">out_order_no = #{outOrderNo},</if>
+            <if test="errCode != null">err_code = #{errCode},</if>
+            <if test="errMsg != null">err_msg = #{errMsg},</if>
+            <if test="successTime != null">success_time = #{successTime},</if>
+            <if test="extra != null">extra = #{extra},</if>
+            <if test="userNote != null">user_note = #{userNote},</if>
+            <if test="tradeNo != null">trade_no = #{tradeNo},</if>
+            <if test="type != null">type = #{type},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
 </mapper>

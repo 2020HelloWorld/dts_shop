@@ -12,7 +12,13 @@ import java.time.LocalDateTime;
 
 @Data
 @TableName("dts_order")
-public class VipOrder implements Serializable {
+public class Order implements Serializable {
+    public static final int PAY_STATE_CREATED = 0;//订单生成待支付
+    public static final int PAY_STATE_SUCCESS = 1;//支付成功
+    public static final int PAY_STATE_FAIL = 2;//支付失败
+    public static final int PAY_STATE_CANCEL = 4;//已取消
+    public static final int PAY_STATE_REFUNDED = 5;//已退款
+    public static final int PAY_STATE_CLOSED = 6;//订单关闭
 
     /**
      *
@@ -130,5 +136,19 @@ public class VipOrder implements Serializable {
     @ApiModelProperty("买家留言")
     @TableField("user_note")
     private String userNote;
+
+    /**
+     *  买家留言
+     */
+    @ApiModelProperty("支付宝订单号")
+    @TableField("trade_no")
+    private String tradeNo;
+
+    /**
+     *  买家留言
+     */
+    @ApiModelProperty("订单类型")
+    @TableField("type")
+    private Integer type;
 
 }
