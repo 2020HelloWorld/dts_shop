@@ -4,6 +4,7 @@ import com.qiguliuxing.dts.db.domain.DtsOrder;
 import com.qiguliuxing.dts.db.domain.DtsOrderExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface DtsOrderMapper {
     /**
@@ -156,4 +157,19 @@ public interface DtsOrderMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     int logicalDeleteByPrimaryKey(Integer id);
+
+    /**
+     * 查询所有订单数据
+     * @return
+     */
+    @Select(value = "select * from dts_order")
+    List<DtsOrder> queryAllOrder();
+
+    /**
+     *
+     * @param orderNo
+     * @return
+     */
+    @Select(value = "select * from dts_order where order_sn = #{orderSn}")
+    DtsOrder queryByOrderSn(String orderSn);
 }

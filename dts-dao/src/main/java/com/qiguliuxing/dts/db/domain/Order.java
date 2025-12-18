@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -50,71 +51,98 @@ public class Order implements Serializable {
      * @mbg.generated
      */
     @ApiModelProperty("订单号")
-    @TableField("order_no")
-    private String orderNo;
+    @TableField("order_sn")
+    private String orderSn;
 
     /**
-     *  会员等级
+     *  订单类型（0.普通订单1.会员订单默认0）
      */
-    @ApiModelProperty("会员等级")
-    @TableField("vip_level")
-    private Integer vipLevel;
+    @ApiModelProperty("订单类型（0.普通订单1.会员订单默认0）")
+    @TableField("type")
+    private Integer type;
 
     /**
      *  支付状态: 0-待支付, 1-支付成功, 2-支付失败, 4-已取消, 5-已退款, 6-订单关闭
      */
     @ApiModelProperty("支付状态")
-    @TableField("state")
-    private Integer state;
+    @TableField("order_status")
+    private Integer orderStatus;
 
     /**
-     *  订单标题
+     *  收货人名称
      */
-    @ApiModelProperty("订单标题")
-    @TableField("subject")
-    private String subject;
+    @ApiModelProperty("收货人名称")
+    @TableField("consignee")
+    private String consignee;
 
     /**
-     *  商品描述信息
+     *  收货人手机号
      */
-    @ApiModelProperty("商品描述信息")
-    @TableField("body")
-    private String body;
+    @ApiModelProperty("收货人手机号")
+    @TableField("mobile")
+    private String mobile;
 
     /**
-     *  过期时间（秒）
+     *  收货人具体地址
      */
-    @ApiModelProperty("订单过期时间戳,秒")
-    @TableField("expired_at")
-    private Long expiredAt;
+    @ApiModelProperty("收货人具体地址")
+    @TableField("address")
+    private String address;
+//    /**
+//     *  订单标题
+//     */
+//    @ApiModelProperty("订单标题")
+//    @TableField("subject")
+//    private String subject;
+//
+//    /**
+//     *  商品描述信息
+//     */
+//    @ApiModelProperty("商品描述信息")
+//    @TableField("body")
+//    private String body;
+//
+//    /**
+//     *  过期时间（秒）
+//     */
+//    @ApiModelProperty("订单过期时间戳,秒")
+//    @TableField("expired_at")
+//    private Long expiredAt;
 
     /**
-     *  订单金额
+     *  商品总费用
      */
-    @ApiModelProperty("订单金额（分）")
-    @TableField("fee_amount")
-    private Float feeAmount;
+    @ApiModelProperty("商品总费用")
+    @TableField("goods_price")
+    private Float goodsPrice;
 
     /**
-     *  渠道订单号
+     *  配送费用
      */
-    @ApiModelProperty("渠道订单号")
-    @TableField("out_order_no")
-    private String outOrderNo;
+    @ApiModelProperty("配送费用")
+    @TableField("freight_price")
+    private Float freightPrice;
 
-    /**
-     *  渠道支付错误码
-     */
-    @ApiModelProperty("渠道支付错误码")
-    @TableField("err_code")
-    private String errCode;
+//    /**
+//     *  渠道订单号
+//     */
+//    @ApiModelProperty("渠道订单号")
+//    @TableField("out_order_no")
+//    private String outOrderNo;
 
-    /**
-     *  渠道支付错误信息
-     */
-    @ApiModelProperty("渠道支付错误信息")
-    @TableField("err_msg")
-    private String errMsg;
+//    /**
+//     *  渠道支付错误码
+//     */
+//    @ApiModelProperty("渠道支付错误码")
+//    @TableField("err_code")
+//    private String errCode;
+
+//    /**
+//     *  渠道支付错误信息
+//     */
+//    @ApiModelProperty("渠道支付错误信息")
+//    @TableField("err_msg")
+//    private String errMsg;
 
     /**
      *  支付成功时间
@@ -123,19 +151,33 @@ public class Order implements Serializable {
     @TableField("success_time")
     private LocalDateTime successTime;
 
-    /**
-     *  额外参数
-     */
-    @ApiModelProperty("额外参数")
-    @TableField("extra")
-    private String extra;
+//    /**
+//     *  订单创建时间
+//     */
+//    @ApiModelProperty("订单创建时间")
+//    @TableField("created_at")
+//    private LocalDateTime createdAt;
+//
+//    /**
+//     *  订单更新时间
+//     */
+//    @ApiModelProperty("订单更新时间")
+//    @TableField("updated_at")
+//    private LocalDateTime updatedAt;
+//
+//    /**
+//     *  额外参数
+//     */
+//    @ApiModelProperty("额外参数")
+//    @TableField("extra")
+//    private String extra;
 
     /**
-     *  买家留言
+     *  用户订单留言
      */
-    @ApiModelProperty("买家留言")
-    @TableField("user_note")
-    private String userNote;
+    @ApiModelProperty("用户订单留言")
+    @TableField("message")
+    private String message;
 
     /**
      *  买家留言
@@ -144,11 +186,130 @@ public class Order implements Serializable {
     @TableField("trade_no")
     private String tradeNo;
 
+
     /**
-     *  买家留言
+     *优惠券减免
+     *
+     * @mbg.generated
      */
-    @ApiModelProperty("订单类型")
-    @TableField("type")
-    private Integer type;
+    private BigDecimal couponPrice;
+
+    /**
+     *用户积分减免
+     *
+     * @mbg.generated
+     */
+    private BigDecimal integralPrice;
+
+    /**
+     *团购优惠价减免
+     *
+     * @mbg.generated
+     */
+    private BigDecimal grouponPrice;
+
+    /**
+     *订单费用， = goods_price + freight_price - coupon_price
+     *
+     * @mbg.generated
+     */
+    private BigDecimal orderPrice;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private BigDecimal actualPrice;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private String payId;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private LocalDateTime payTime;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private String shipSn;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private String shipChannel;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private LocalDateTime shipTime;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private LocalDateTime confirmTime;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private Short comments;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private LocalDateTime endTime;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private LocalDateTime addTime;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private LocalDateTime updateTime;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private Boolean deleted;
+
+    /**
+     *
+     *
+     * @mbg.generated
+     */
+    private BigDecimal settlementMoney;
+
+    /**
+     *
+     * @mbg.generated
+     */
+    private Boolean settlementStatus;
 
 }

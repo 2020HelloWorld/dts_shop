@@ -1,18 +1,19 @@
 package com.qiguliuxing.dts.wx.service;
 
 
+import com.qiguliuxing.dts.db.domain.DtsOrder;
 import com.qiguliuxing.dts.db.domain.Order;
 
 import java.util.List;
 
 public interface OrderService {
-    String createOrder(Order order);
+    String createOrder(DtsOrder dtsOrder);
 
-    List<Order> queryAllOrder();
+    List<DtsOrder> queryAllOrder();
 
-    Order queryByOrderNo(String orderNo);
+    DtsOrder queryByOrderSn(String orderNo);
 
-    void update(Order order);
+    void update(DtsOrder order);
 
-    Order queryById(Integer id);
+    DtsOrder queryById(Integer id);
 }

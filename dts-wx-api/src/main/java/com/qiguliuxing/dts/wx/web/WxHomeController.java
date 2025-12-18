@@ -123,15 +123,15 @@ public class WxHomeController {
 			executorService.submit(couponListTask);
 
 			// 优先从缓存中读取
-			if (HomeCacheManager.hasData(HomeCacheManager.INDEX)) {
-				data = HomeCacheManager.getCacheData(HomeCacheManager.INDEX);
-				if (data != null) {// 加上这个判断，排除判断后到获取数据之间时间段清理的情况
-					LocalDateTime expire = (LocalDateTime) data.get("expireTime");
-					logger.info("访问首页,存在缓存数据，除用户优惠券信息外，加载缓存数据,有效期时间点："+ expire.toString());
-					data.put("couponList", couponListTask.get());
-					return ResponseUtil.ok(data);
-				}
-			}
+//			if (HomeCacheManager.hasData(HomeCacheManager.INDEX)) {
+//				data = HomeCacheManager.getCacheData(HomeCacheManager.INDEX);
+//				if (data != null) {// 加上这个判断，排除判断后到获取数据之间时间段清理的情况
+//					LocalDateTime expire = (LocalDateTime) data.get("expireTime");
+//					logger.info("访问首页,存在缓存数据，除用户优惠券信息外，加载缓存数据,有效期时间点："+ expire.toString());
+//					data.put("couponList", couponListTask.get());
+//					return ResponseUtil.ok(data);
+//				}
+//			}
 
 			Callable<List> bannerListCallable = () -> adService.queryIndex();
 

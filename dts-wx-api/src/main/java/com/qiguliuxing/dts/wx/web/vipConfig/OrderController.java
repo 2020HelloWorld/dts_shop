@@ -1,6 +1,7 @@
 package com.qiguliuxing.dts.wx.web.vipConfig;
 
 import com.qiguliuxing.dts.core.util.ResponseUtil;
+import com.qiguliuxing.dts.db.domain.DtsOrder;
 import com.qiguliuxing.dts.db.domain.Order;
 import com.qiguliuxing.dts.wx.service.OrderService;
 import io.swagger.annotations.ApiOperation;
@@ -25,15 +26,15 @@ public class OrderController {
      */
     @PostMapping("/createOrder")
     @ApiOperation("创建订单")
-    public Object createOrder(@RequestBody Order order){
-        orderService.createOrder(order);
+    public Object createOrder(@RequestBody DtsOrder dtsOrder){
+        orderService.createOrder(dtsOrder);
         return ResponseUtil.ok();
     }
 
     @GetMapping("/queryAllOrder")
     @ApiOperation("查询所有订单")
     public Object queryAllOrder(){
-        List<Order> orderList = orderService.queryAllOrder();
+        List<DtsOrder> orderList = orderService.queryAllOrder();
         return ResponseUtil.ok(orderList);
     }
 

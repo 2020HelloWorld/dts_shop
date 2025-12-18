@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/wx/vipConfig")
+@RequestMapping("/api/wx/vipConfig")
 @Validated
 public class VipConfigController {
 

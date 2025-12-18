@@ -174,7 +174,7 @@
 	    	<properties>
 	    	    <profile.active>dev</profile.active>
                 <!-- 各个服务的端口配置 -->
-                <api.wx.port>8080</api.wx.port>
+                <api.wx.port>9999</api.wx.port>
                 <api.admin.port>8083</api.admin.port>
 	    	    <logback.dir>./logs</logback.dir>
 	    	</properties>

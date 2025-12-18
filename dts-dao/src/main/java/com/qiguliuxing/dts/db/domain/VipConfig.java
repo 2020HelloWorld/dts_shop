@@ -20,18 +20,18 @@ public class VipConfig implements Serializable {
     private Integer id;
 
     /**
-     * 名称
+     * 会员名称
      */
-    @ApiModelProperty("名称")
+    @ApiModelProperty("会员名称")
     @TableField("name")
     private String name;
 
     /**
-     * VIP等级，从1开始，不重复
+     * VIP等级
      */
-    @ApiModelProperty("VIP等级，从1开始，不重复")
-    @TableField("level")
-    private Integer level;
+    @ApiModelProperty("VIP等级")
+    @TableField("type")
+    private String type;
 
     /**
      * 排序，越小越靠前
@@ -41,13 +41,42 @@ public class VipConfig implements Serializable {
     private Integer sort;
 
     /**
-     * 描述信息
+     * 会员描述信息
      */
-    @ApiModelProperty("描述信息")
-    @TableField("description")
-    private String description;
+    @ApiModelProperty("会员描述信息")
+    @TableField("introduce")
+    private String introduce;
 
     @ApiModelProperty("价格")
     @TableField("price")
     private float price;
+
+    /**
+     * 是否有效（0.有效1.无效）默认0
+     */
+    @ApiModelProperty("是否有效（0.有效1.无效）默认0")
+    @TableField("is_deleted")
+    private Integer isDeleted;
+
+    /**
+     * 礼品
+     */
+    @ApiModelProperty("礼品")
+    @TableField("gifts")
+    private String gifts;
+
+    /**
+     * 旅游权限详情
+     */
+    @ApiModelProperty("旅游权限详情")
+    @TableField("travel")
+    private String travel;
+
+    /**
+     * 单次购买会员有效时长（以天为单位）
+     */
+    @ApiModelProperty("是否有效（0.有效1.无效）默认0")
+    @TableField("duration")
+    private Integer duration;
+
 }

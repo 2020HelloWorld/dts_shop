@@ -355,6 +355,18 @@
       <if test="settlementStatus != null">
         settlement_status,
       </if>
+        <if test="type != null">
+            type,
+        </if>
+        <if test="successTime != null">
+            success_time,
+        </if>
+        <if test="tradeNo != null">
+            trade_no,
+        </if>
+        <if test="subject != null">
+            subject,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -438,6 +450,18 @@
       <if test="settlementStatus != null">
         #{settlementStatus,jdbcType=BIT},
       </if>
+        <if test="type != null">
+            #{type,jdbcType=INTEGER},
+        </if>
+        <if test="successTime != null">
+            #{successTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="tradeNo != null">
+            #{tradeNo,jdbcType=VARCHAR},
+        </if>
+        <if test="subject != null">
+            #{subject,jdbcType=VARCHAR},
+        </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.qiguliuxing.dts.db.domain.DtsOrderExample" resultType="java.lang.Long">
@@ -672,6 +696,18 @@
       <if test="settlementStatus != null">
         settlement_status = #{settlementStatus,jdbcType=BIT},
       </if>
+        <if test="type != null">
+            type = #{type,jdbcType=INTEGER},
+        </if>
+        <if test="successTime != null">
+            success_time = #{successTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="tradeNo != null">
+            trade_no = #{tradeNo,jdbcType=VARCHAR},
+        </if>
+        <if test="subject != null">
+            subject = #{subject,jdbcType=VARCHAR},
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
