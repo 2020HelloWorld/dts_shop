@@ -6,16 +6,15 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
+import com.qiguliuxing.dts.core.type.UserTypeEnum;
 import com.qiguliuxing.dts.core.util.ResultUtil;
-import com.qiguliuxing.dts.db.domain.DtsOrder;
-import com.qiguliuxing.dts.db.domain.DtsUser;
-import com.qiguliuxing.dts.db.domain.OrderDto;
-import com.qiguliuxing.dts.db.domain.Order;
+import com.qiguliuxing.dts.db.domain.*;
 import com.qiguliuxing.dts.db.service.DtsUserService;
 import com.qiguliuxing.dts.wx.service.OrderService;
 import com.qiguliuxing.dts.wx.util.AliOSSUtil;
 import com.qiguliuxing.dts.wx.util.OrderNoUtils;
 import io.swagger.annotations.ApiOperation;
+import org.jacoco.agent.rt.internal_43f5073.core.internal.flow.IFrame;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,10 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("api/pay/alipay")
@@ -89,7 +85,32 @@ public class AliPayController {
                 get(0).getId());
         order.setOrderStatus(DtsOrder.PAY_STATE_CREATED);
         order.setMobile(orderDto.getPhone());
-        order.setSubject("订单标题");
+        if(orderDto.getOrderType() == 0){
+            if (orderDto.getType().equals(VipConfig.COPPER_VIP)){
+                order.setSubject("铜卡VIP会员购买");
+                order.setVipLevel((byte) 1);
+            }
+            if (orderDto.getType().equals(VipConfig.SILVER_VIP)){
+                order.setSubject("银卡VIP会员购买");
+                order.setVipLevel((byte) 2);
+            }
+            if (orderDto.getType().equals(VipConfig.GOLD_VIP)){
+                order.setSubject("金卡VIP会员购买");
+                order.setVipLevel((byte) 3);
+            }
+            if (orderDto.getType().equals(VipConfig.PLATINUM_VIP)){
+                order.setSubject("铂金VIP会员购买");
+                order.setVipLevel((byte) 4);
+            }
+            if (orderDto.getType().equals(VipConfig.BLACKGOLD_VIP)){
+                order.setSubject("黑金至尊VIP会员购买");
+                order.setVipLevel((byte) 5);
+            }
+            order.setType(0);
+        }else {
+            order.setType(1);
+            order.setSubject("商品购买");
+        }
         order.setMessage("随便写");
         order.setGoodsPrice(new BigDecimal(orderDto.getPrice()));
         String orderNo = orderService.createOrder(order);
@@ -144,6 +165,7 @@ public class AliPayController {
             String sellerId = params.get("seller_id");//卖家支付宝用户号
             String outTradeNo = params.get("out_trade_no");//商户订单号
             String tradeStatus = params.get("trade_status");//交易状态（TRADE_SUCCESS表示成功）
+            System.out.println("卖家支付宝用户号: " + sellerId);
             //通过订单号查询对应订单进行状态更新
             DtsOrder order = orderService.queryByOrderSn(outTradeNo);
             if ("TRADE_SUCCESS".equals(tradeStatus)) {
@@ -152,6 +174,10 @@ public class AliPayController {
                 order.setSuccessTime(LocalDateTime.now());//记录支付成功时间
                 //最后更新订单数据
                 orderService.update(order);
+                //更新订单完成后如果是会员订单赋予用户对应会员权限
+                if (order.getType() == 0){
+                    dtsUserService.setVipLevelByUserId(order.getUserId(),order.getVipLevel());
+                }
                 return "success";
             }else if ("TRADE_FINISHED".equals(tradeStatus)) {
                 order.setOrderStatus(DtsOrder.PAY_STATE_FAIL);

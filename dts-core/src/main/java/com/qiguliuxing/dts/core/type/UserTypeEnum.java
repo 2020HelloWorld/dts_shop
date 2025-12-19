@@ -9,7 +9,8 @@ package com.qiguliuxing.dts.core.type;
  */
 public enum UserTypeEnum {
 
-	COMM_USER((byte) 0, "普通用户"), VIP_USER((byte) 1, "VIP"), REGIONAL_AGENCY((byte) 2, "区域代理");
+	COMM_USER((byte) 6, "普通用户"), GOLD_VIP((byte) 3, "金卡VIP"), BLACKGOLD_VIP((byte) 5, "黑金至尊VIP"),
+            PLATINUM_VIP((byte) 4, "铂金VIP"),SILVER_VIP((byte) 2, "银卡VIP"),COPPER_VIP((byte) 1, "铜卡VIP");
 
 	private Byte level;
 	private String desc;

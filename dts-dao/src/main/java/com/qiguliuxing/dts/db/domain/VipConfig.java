@@ -12,6 +12,11 @@ import java.io.Serializable;
 @Data
 @TableName("dts_vip_config")
 public class VipConfig implements Serializable {
+    public static final String COPPER_VIP = "copper";
+    public static final String SILVER_VIP = "silver";
+    public static final String GOLD_VIP = "gold";
+    public static final String PLATINUM_VIP = "platinum";
+    public static final String BLACKGOLD_VIP = "blackgold";
     /**
      *
      */

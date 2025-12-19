@@ -169,4 +169,8 @@ public class DtsUserService {
 	public List<DayStatis> recentCount(int statisDaysRang) {
 		return statMapper.statisIncreaseUserCnt(statisDaysRang);
 	}
+
+    public void setVipLevelByUserId(Integer userId,Byte vipLevel) {
+        userMapper.setVipLevelByUserId(userId,vipLevel);
+    }
 }

@@ -367,6 +367,9 @@
         <if test="subject != null">
             subject,
         </if>
+        <if test="vipLevel != null">
+            vip_level,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -461,6 +464,9 @@
         </if>
         <if test="subject != null">
             #{subject,jdbcType=VARCHAR},
+        </if>
+        <if test="vipLevel != null">
+            #{vipLevel,jdbcType=BIT},
         </if>
     </trim>
   </insert>
